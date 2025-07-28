@@ -12,11 +12,14 @@ namespace JsonToHtmlConverter
 {
     internal class Program
     {
-        private static HtmlDocument jsonObject;
+        private static HtmlDocument jsonObject1;
+        private static HtmlDocument jsonObject2;
+        private static HtmlDocument jsonObject3;
         private static ConvertController controller;
 
         static void Main(string[] args)
         {
+            controller = new ConvertController();
             string jsonFileOutput1 = File.ReadAllText("helloWorld.json"); //Najdemo json in ga preberemo
             string jsonFileOutput2 = File.ReadAllText("pageNotFound.json"); 
             string jsonFileOutput3 = File.ReadAllText("pageNotFoundV2.json");
