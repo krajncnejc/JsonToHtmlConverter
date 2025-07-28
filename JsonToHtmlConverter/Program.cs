@@ -18,7 +18,7 @@ namespace JsonToHtmlConverter
         {
             controller = new ConvertController();
             string jsonFileOutput1 = File.ReadAllText("helloWorld.json"); //Najdemo json in ga preberemo
-            string jsonFileOutput2 = File.ReadAllText("pageNotFound.json"); 
+            string jsonFileOutput2 = File.ReadAllText("pageNotFound.json");  //vse datoteke se nahajajo lokalno znotraj JsonToHtmlConverter\JsonToHtmlConverter\bin\Debug
             string jsonFileOutput3 = File.ReadAllText("pageNotFoundV2.json");
 
             var jsonObject1 = JsonConvert.DeserializeObject<HtmlDocument>(jsonFileOutput1); //Newtonsoft pomaga da spremeni v HtmlDocument tip
