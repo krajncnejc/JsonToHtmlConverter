@@ -12,9 +12,6 @@ namespace JsonToHtmlConverter
 {
     internal class Program
     {
-        private static HtmlDocument jsonObject1;
-        private static HtmlDocument jsonObject2;
-        private static HtmlDocument jsonObject3;
         private static ConvertController controller;
 
         static void Main(string[] args)

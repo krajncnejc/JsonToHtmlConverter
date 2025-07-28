@@ -81,7 +81,7 @@ internal class ConvertController
                 {
                     foreach (var child in mainElement.Children) //gremo skozi nested stvari(children)
                     {
-                        if (child.Value.Type == JTokenType.String)
+                        if (child.Value.Type == JTokenType.String) //odvisno kakšen child je ga na različen način generiramo
                         {
                             stringBuilderGen.AppendLine($"<{child.Key}> {child.Value}</{child.Key}>");
                         }
