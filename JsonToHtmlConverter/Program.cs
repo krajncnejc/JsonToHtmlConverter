@@ -25,8 +25,6 @@ namespace JsonToHtmlConverter
             var jsonObject2 = JsonConvert.DeserializeObject<HtmlDocument>(jsonFileOutput2); 
             var jsonObject3 = JsonConvert.DeserializeObject<HtmlDocument>(jsonFileOutput3); 
 
-
-
             string htmlOutput1 = controller.GenerateHtml(jsonObject1);
             string htmlOutput2 = controller.GenerateHtml(jsonObject2);
             string htmlOutput3 = controller.GenerateHtml(jsonObject3);
@@ -37,7 +35,7 @@ namespace JsonToHtmlConverter
             Console.WriteLine();
             Console.WriteLine(htmlOutput3);
 
-            //Shranimo Html datoteko
+            //Shranimo Html datoteko v BIN od projekta se shrani
             string htmlFileName1 = "outputHtml1.html";
             string htmlFileName2 = "outputHtml2.html";
             string htmlFileName3 = "outputHtml3.html";

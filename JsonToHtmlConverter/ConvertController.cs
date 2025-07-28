@@ -103,7 +103,6 @@ internal class ConvertController
                 if (mainTag != "html")
                     stringBuilderGen.AppendLine($"</{mainTag}>");
             }
-
             return stringBuilderGen.ToString();
         }
     }
