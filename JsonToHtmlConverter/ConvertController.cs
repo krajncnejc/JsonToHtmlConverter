@@ -9,6 +9,7 @@ namespace JsonToHtmlConverter
 {
 internal class ConvertController
     {
+        public string tab(int level) => new string(' ', level * 4); 
         public string GenerateHtml(HtmlDocument jsonObject)
         {
             var stringBuilderGen = new StringBuilder();
@@ -16,18 +17,18 @@ internal class ConvertController
             stringBuilderGen.AppendLine(($"<html lang='{jsonObject.Language ?? "en"}'>"));
             if (jsonObject.Head != null)
             {
-                stringBuilderGen.Append(GenerateHtmlElement("head", jsonObject.Head));
+                stringBuilderGen.Append(GenerateHtmlElement("head", jsonObject.Head, 1));
             }
 
             if (jsonObject.Body != null)
             {
-                stringBuilderGen.Append(GenerateHtmlElement("body", jsonObject.Body));
+                stringBuilderGen.Append(GenerateHtmlElement("body", jsonObject.Body, 1));
             }
             stringBuilderGen.AppendLine("</html>");
 
             return stringBuilderGen.ToString();
         }
-        public string GenerateHtmlElement(string mainTag, HtmlElement mainElement)
+        public string GenerateHtmlElement(string mainTag, HtmlElement mainElement, int tabLVL)
         {
             var stringBuilderGen = new StringBuilder();
             string[] selfEndingTags = { "meta", "link", "br", "hr", "img" }; //ob potrebi se še dodajo kateri so pač tagi ko ne rabijo <nekaj></nekaj>
@@ -59,7 +60,7 @@ internal class ConvertController
             {
                 if (mainElement.Children != null)
                 {
-                    foreach (var child in mainElement.Children)
+                    foreach (var child in mainElement.Children) //Namenjeno za MetaData atribute ki jih je težko dinamično brat brez da bi si jih vnaprej predefinirali
                     {
                         if (child.Value is JObject jObject)
                         {
@@ -72,36 +73,36 @@ internal class ConvertController
                         }
                     }
                 }
-                stringBuilderGen.AppendLine($"<{mainTag}{htmlAttributes} />");
+                stringBuilderGen.AppendLine($"{tab(tabLVL)}<{mainTag}{htmlAttributes}/>");
             }
             else //navadni torej recimo <p></p>
             {
-                stringBuilderGen.AppendLine($"<{mainTag}{htmlAttributes}>");
+                stringBuilderGen.AppendLine($"{tab(tabLVL)}<{mainTag}{htmlAttributes}>");
                 if (mainElement.Children != null)
                 {
                     foreach (var child in mainElement.Children) //gremo skozi nested stvari(children)
                     {
                         if (child.Value.Type == JTokenType.String) //odvisno kakšen child je ga na različen način generiramo
                         {
-                            stringBuilderGen.AppendLine($"<{child.Key}> {child.Value}</{child.Key}>");
+                            stringBuilderGen.AppendLine($"{tab(tabLVL+1)}<{child.Key}> {child.Value}</{child.Key}>");
                         }
                         else if (child.Value.Type == JTokenType.Object)
                         {
                             var childElement = child.Value.ToObject<HtmlElement>();
-                            stringBuilderGen.AppendLine(GenerateHtmlElement(child.Key, childElement));
+                            stringBuilderGen.AppendLine(GenerateHtmlElement(child.Key, childElement, tabLVL + 1));
                         }
                         else if (child.Value.Type == JTokenType.Array)
                         {
                             foreach (var childItem in (JArray)child.Value)
                             {
                                 var itemElement = childItem.ToObject<HtmlElement>();
-                                stringBuilderGen.AppendLine(GenerateHtmlElement(child.Key, itemElement));
+                                stringBuilderGen.AppendLine(GenerateHtmlElement(child.Key, itemElement, tabLVL + 1));
                             }
                         }
                     }
                 }
                 if (mainTag != "html")
-                    stringBuilderGen.AppendLine($"</{mainTag}>");
+                    stringBuilderGen.AppendLine($"{tab(tabLVL)}</{mainTag}>");
             }
             return stringBuilderGen.ToString();
         }

@@ -42,11 +42,6 @@ namespace JsonToHtmlConverter
             File.WriteAllText(htmlFileName1, htmlOutput1);
             File.WriteAllText(htmlFileName2, htmlOutput2);
             File.WriteAllText(htmlFileName3, htmlOutput3);
-            /*
-            System.Diagnostics.Process.Start( new System.Diagnostics.ProcessStartInfo { FileName = htmlFileName1, UseShellExecute = true});
-            System.Diagnostics.Process.Start( new System.Diagnostics.ProcessStartInfo { FileName = htmlFileName2, UseShellExecute = true});
-            System.Diagnostics.Process.Start( new System.Diagnostics.ProcessStartInfo { FileName = htmlFileName3, UseShellExecute = true});
-            */
         }  
     }
 }
