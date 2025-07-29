@@ -34,10 +34,10 @@ internal class ConvertController
             string[] selfEndingTags = { "meta", "link", "br", "hr", "img" }; //ob potrebi se še dodajo kateri so pač tagi ko ne rabijo <nekaj></nekaj>
 
             string htmlAttributes = "";
-            if (mainElement.Attributes != null)
+            if (mainElement.Attributes != null)//Vsi atributi ki spadajo poleg tega tag-a npr: <p id="myId",background-color:#000000 ipd...>
             {
                 var attributeParts = new List<string>();
-                foreach (var attribute in mainElement.Attributes)
+                foreach (var attribute in mainElement.Attributes) 
                 {
                     if (attribute.Key == "style" && attribute.Value.Type == JTokenType.Object) //style dodamo posebej kot atribut da se vsi skupaj držijo
                     {
